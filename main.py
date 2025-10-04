@@ -14,5 +14,11 @@ text = text[50000:150000]
 characters = sorted(set(text)) # get the unique characters in the text and sort them
 
 # create a dictionary that maps each character to an index and back
-char_index = dict((char, index) for index, char in enumerate(characters))
-index_char = dict((index, char) for index, char in enumerate(characters))
+char_to_index = dict((char, index) for index, char in enumerate(characters))
+index_to_char = dict((index, char) for index, char in enumerate(characters))
+
+seq_length = 40 # length of each sequence to consider for next character prediction
+step = 3 # step size to move forward in the text to create the next sequence
+sentences = [] # list to hold the sequences of characters
+next_char = [] # list to hold the next character for each sequence
+
