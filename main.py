@@ -22,3 +22,8 @@ step = 3 # step size to move forward in the text to create the next sequence
 sentences = [] # list to hold the sequences of characters
 next_char = [] # list to hold the next character for each sequence
 
+for i in range(0, len(text) - seq_length, step):
+    sentences.append(text[i: i+seq_length])
+    next_char.append(text[i + seq_length])
+
+x = np.zeros(((len(sentences), seq_length, len(characters))), dtype=np.bool) # input data
