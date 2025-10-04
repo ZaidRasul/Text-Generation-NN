@@ -35,3 +35,8 @@ for i, sentences in enumerate(sentences):
     for t, char in enumerate(sentences):
         x[i, t, char_to_index[char]] = 1
     y[i, char_to_index[next_char[i]]] = 1
+
+
+# build the model
+model = Sequential()
+model.add(LSTM(128, input_shappe=(seq_length, len(characters))))
