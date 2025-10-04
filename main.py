@@ -13,5 +13,6 @@ text = open(filepath, 'rb').read().decode(encoding='utf-8').lower() #open the fi
 text = text[50000:150000]
 characters = sorted(set(text)) # get the unique characters in the text and sort them
 
-# create a dictionary that maps each character to an index
+# create a dictionary that maps each character to an index and back
 char_index = dict((char, index) for index, char in enumerate(characters))
+index_char = dict((index, char) for index, char in enumerate(characters))
