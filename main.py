@@ -26,4 +26,12 @@ for i in range(0, len(text) - seq_length, step):
     sentences.append(text[i: i+seq_length])
     next_char.append(text[i + seq_length])
 
+# set true for a position if a character is present at that position in the sequence against a sentence
 x = np.zeros(((len(sentences), seq_length, len(characters))), dtype=np.bool) # input data
+
+y = np.zeros((len(sentences), len(characters)), dtype=np.bool) # output data
+#to fill the arrays
+for i, sentences in enumerate(sentences):
+    for t, char in enumerate(sentences):
+        x[i, t, char_to_index[char]] = 1
+    y[i, char_to_index[next_char[i]]] = 1
