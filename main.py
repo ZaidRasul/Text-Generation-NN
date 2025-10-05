@@ -40,3 +40,8 @@ for i, sentences in enumerate(sentences):
 # build the model
 model = Sequential()
 model.add(LSTM(128, input_shappe=(seq_length, len(characters))))
+model.add(Dense(len(characters)))
+model.add(Activation('softmax'))
+model.compile(loss='categorical_crossentropy', optimizer=RMSprop(learning_rate=0.01))
+
+model.fit(x, y, batch_size=256, epochs=4) 
