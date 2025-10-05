@@ -19,6 +19,7 @@ index_to_char = dict((index, char) for index, char in enumerate(characters))
 
 seq_length = 40 # length of each sequence to consider for next character prediction
 step = 3 # step size to move forward in the text to create the next sequence
+'''
 sentences = [] # list to hold the sequences of characters
 next_char = [] # list to hold the next character for each sequence
 
@@ -36,7 +37,12 @@ for i, sentences in enumerate(sentences):
         x[i, t, char_to_index[char]] = 1
     y[i, char_to_index[next_char[i]]] = 1
 
+'''
 
+'''
+# after saving in first run with model.save('textgen_model.keras')
+# you can load the model in next runs with
+# model = tf.keras.models.load_model('textgen_model.keras')
 # build the model
 model = Sequential()
 model.add(LSTM(128, input_shape=(seq_length, len(characters))))
@@ -47,3 +53,6 @@ model.compile(loss='categorical_crossentropy', optimizer=RMSprop(learning_rate=0
 model.fit(x, y, batch_size=256, epochs=4)
 
 model.save('textgen_model.keras')
+'''
+
+model = tf.keras.models.load_model('textgen_model.keras')
