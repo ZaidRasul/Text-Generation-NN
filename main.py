@@ -46,4 +46,4 @@ model.compile(loss='categorical_crossentropy', optimizer=RMSprop(learning_rate=0
 
 model.fit(x, y, batch_size=256, epochs=4)
 
-model.save('textgen.model')
+model.save('textgen_model.keras')
