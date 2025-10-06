@@ -55,4 +55,5 @@ model.fit(x, y, batch_size=256, epochs=4)
 model.save('textgen_model.keras')
 '''
 
+# Load the model
 model = tf.keras.models.load_model('textgen_model.keras')
