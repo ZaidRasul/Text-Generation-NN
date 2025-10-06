@@ -57,3 +57,15 @@ model.save('textgen_model.keras')
 
 # Load the model
 model = tf.keras.models.load_model('textgen_model.keras')
+
+ # helper func taken from keras example 
+# to sample an index from a probability array
+# basiccally pick the next character based on the probabilities predicted by the model
+def sample(preds, temperature=1.0):
+    # helper function to sample an index from a probability array
+    preds = np.asarray(preds).astype('float64')
+    preds = np.log(preds) / temperature
+    exp_preds = np.exp(preds)
+    preds = exp_preds / np.sum(exp_preds)
+    probas = np.random.multinomial(1, preds, 1)
+    return np.argmax(probas) 
