@@ -58,7 +58,7 @@ model.save('textgen_model.keras')
 # Load the model
 model = tf.keras.models.load_model('textgen_model.keras')
 
- # helper func taken from keras example 
+# helper func. taken from keras example 
 # to sample an index from a probability array
 # basiccally pick the next character based on the probabilities predicted by the model
 def sample(preds, temperature=1.0):
@@ -68,4 +68,36 @@ def sample(preds, temperature=1.0):
     exp_preds = np.exp(preds)
     preds = exp_preds / np.sum(exp_preds)
     probas = np.random.multinomial(1, preds, 1)
-    return np.argmax(probas) 
+    return np.argmax(probas)
+
+
+def generate_text(length, temperature):
+    start_index = random.randint(0, len(text) - seq_length - 1)
+    generated = ''
+    sentence = text[start_index: start_index + seq_length]
+    generated += sentence
+    print('Generating with seed: "' + sentence + '"')
+    for i in range(length):
+        x_pred = np.zeros((1, seq_length, len(characters)))
+        for t, char in enumerate(sentence):
+            x_pred[0, t, char_to_index[char]] = 1.
+
+        preds = model.predict(x_pred, verbose=0)[0]
+        next_index = sample(preds, temperature)
+        next_char = index_to_char[next_index]
+
+        generated += next_char
+        sentence = sentence[1:] + next_char
+    return generated
+
+print('----- Generating text -----')
+print('----- temp 0.2 =---------------============---------------')
+print(generate_text(300, 0.2))
+print('----- temp 0.4 =---------------============---------------')
+print(generate_text(300, 0.4))
+print('----- temp 0.6 =---------------============---------------')
+print(generate_text(300, 0.6))
+print('----- temp 0.8 =---------------============---------------')
+print(generate_text(300, 0.8))
+print('----- temp 1.0 =---------------============---------------')
+print(generate_text(300, 1.0)) 
